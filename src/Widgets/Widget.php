@@ -15,13 +15,19 @@
 
 namespace Sioweb\ApplyEnvironment\Widgets;
 use Contao\System;
-use Contao\FrontendTemplate;
+use Contao\BackendTemplate;
 
 class Widget {
     public function parseWidget($strBuffer, $objWidget) {
         
         $container = System::getContainer();
-        $objSelect = new FrontendTemplate('apply2environment_select');
+
+
+        if(!$container->get('contao.routing.scope_matcher')->isBackendRequest($container->get('request_stack')->getCurrentRequest())) {
+            return $strBuffer;
+        }
+
+        $objSelect = new BackendTemplate('apply2environment_select');
         $objSelect->environments = $container->getParameter('apply_environments.environments');
 
 
