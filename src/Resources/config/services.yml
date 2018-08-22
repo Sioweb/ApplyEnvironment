@@ -1,0 +1,20 @@
+services:
+    sioweb.apply_environment.user_provider:
+        class: Sioweb\ApplyEnvironment\Security\User\UserProvider
+        arguments:
+            - "@contao.framework"
+            - "@session"
+            - "Contao\\BackendUser"
+            - "@logger"
+    
+    sioweb.security.cm_authenticator:
+        class: Sioweb\ApplyEnvironment\Security\Authentication\Authenticator
+        arguments:
+            - "@sioweb.apply_environment.routing.matcher"
+            - "@router"
+            - "@contao.framework"
+
+    sioweb.apply_environment.routing.matcher:
+        class: Symfony\Component\HttpFoundation\RequestMatcher
+        calls:
+            - ["matchAttribute", ["_scope", "apply_environment"]]

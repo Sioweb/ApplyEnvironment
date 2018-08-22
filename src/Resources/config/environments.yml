@@ -1,0 +1,9 @@
+apply_environments:
+  environments:
+    productive:
+      prod: true
+      short: intern
+      title: Produktiv
+    development:
+      short: dev
+      title: Development

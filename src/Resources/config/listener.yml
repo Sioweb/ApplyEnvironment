@@ -1,0 +1,7 @@
+services:
+    apply_environment.listener.initialize_application:
+        class: Sioweb\ApplyEnvironment\EventListener\InitializeApplicationListener
+        arguments:
+            - "%kernel.root_dir%"
+        tags:
+            - { name: kernel.event_listener, event: contao_installation.initialize_application, method: onInitializeApplication, priority: -256 }

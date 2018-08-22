@@ -1,0 +1,6 @@
+<select class="apply2environment" name="a2e_<?= $this->name?>" size="1" data-widget='<?= $this->widget?>'>
+    <option value="">Speichern für:</option>
+    <?php foreach($this->environments as $key => $environment):?>
+    <option value="<?= !empty($environment['short'])?$environment['short']:$key ?>"><?= $environment['title']?></option>
+    <?php endforeach;?>
+</select>

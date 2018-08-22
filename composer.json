@@ -1,0 +1,39 @@
+{
+    "name": "sioweb/apply_environment",
+    "type": "contao-bundle",
+    "description": "Setup environment Data",
+    "license": "LGPL-3.0+",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Sascha Weidner",
+            "homepage": "https://www.sioweb.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "symfony/framework-bundle": "^2.8|^3.0",
+        "contao/core-bundle": "^4.3.1"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "conflict": {
+        "contao/core": "*",
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sioweb\\ApplyEnvironment\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "4.4.x-dev"
+        },
+        "contao-manager-plugin": "Sioweb\\ApplyEnvironment\\ContaoManager\\Plugin"
+    }
+}

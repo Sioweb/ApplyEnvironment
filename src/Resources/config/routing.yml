@@ -1,0 +1,17 @@
+# The catch all route must be the last one!
+sioweb_a2e_apply:
+    path: /sioweb/a2e/api/{environment}
+    defaults:
+        _scope: apply_environment
+        _token_check: true
+        _controller: "SiowebApplyEnvironmentBundle:ApplyToEnvironment:apply"
+    requirements:
+        environment: .+
+sioweb_a2e_catch_all:
+    path: /sioweb/a2e/api/{_url_fragment}
+    defaults:
+        _scope: apply_environment
+        _token_check: true
+        _controller: "SiowebApplyEnvironmentBundle:ApplyToEnvironment:index"
+    requirements:
+        _url_fragment: .*

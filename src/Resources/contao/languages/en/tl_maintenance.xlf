@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_maintenance.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_maintenance.apply_environment">
+        <source>Apply environment</source>
+        <target>Apply environment</target>
+      </trans-unit>
+      <trans-unit id="tl_maintenance.apply_environment_button">
+        <source>Apply</source>
+        <target>Apply</target>
+      </trans-unit>
+      <trans-unit id="tl_maintenance.apply_environment_label">
+        <source>Choose environment</source>
+        <target>Choose environment</target>
+      </trans-unit>
+      <trans-unit id="tl_maintenance.apply_environment_help">
+        <source>Your active environment is choosen, please only change this value if you know what you are doing.</source>
+        <target>Your active environment is choosen, please only change this value if you know what you are doing.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
