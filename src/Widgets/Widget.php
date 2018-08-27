@@ -16,14 +16,21 @@
 namespace Sioweb\ApplyEnvironment\Widgets;
 use Contao\System;
 use Contao\BackendTemplate;
+use Contao\CoreBundle\Routing\ScopeMatcher;
 
 class Widget {
+
+    private $scopeMatcher = null;
+
+    public function __construct(ScopeMatcher $scope_matcher) {
+        $this->scopeMatcher = $scope_matcher;
+    }
+
     public function parseWidget($strBuffer, $objWidget) {
         
         $container = System::getContainer();
-
-
-        if(!$container->get('contao.routing.scope_matcher')->isBackendRequest($container->get('request_stack')->getCurrentRequest())) {
+        
+        if(!$this->scopeMatcher->isBackendRequest($container->get('request_stack')->getCurrentRequest())) {
             return $strBuffer;
         }
 

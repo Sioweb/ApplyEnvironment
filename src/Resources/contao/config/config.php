@@ -22,7 +22,7 @@ if (TL_MODE == 'BE')
 	$GLOBALS['TL_CSS'][] = 'bundles/siowebapplyenvironment/css/apply2environment.css';
 }
 
-$GLOBALS['TL_HOOKS']['parseWidget'][] = ['Sioweb\ApplyEnvironment\Widgets\Widget', 'parseWidget'];
+$GLOBALS['TL_HOOKS']['parseWidget'][] = ['apply_environment.listener.parseWidget', 'parseWidget'];
 
 array_insert($GLOBALS['TL_MAINTENANCE'],1,array(
 	'Sioweb\ApplyEnvironment\Contao\ApplyEnvironment'

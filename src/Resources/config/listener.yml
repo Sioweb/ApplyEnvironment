@@ -5,3 +5,8 @@ services:
             - "%kernel.root_dir%"
         tags:
             - { name: kernel.event_listener, event: contao_installation.initialize_application, method: onInitializeApplication, priority: -256 }
+    apply_environment.listener.parseWidget:
+        class: Sioweb\ApplyEnvironment\Widgets\Widget
+        arguments:
+            - "@contao.routing.scope_matcher"
+        public: true
