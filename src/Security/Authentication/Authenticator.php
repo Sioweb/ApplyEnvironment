@@ -53,6 +53,10 @@ class Authenticator extends AbstractGuardAuthenticator
         $this->ScopeMatcher->matchAttribute('_scope', 'apply_environment');
     }
 
+    public function supports(Request $request) {
+        return true;
+    }
+
     /**
      * {@inheritdoc}
      */

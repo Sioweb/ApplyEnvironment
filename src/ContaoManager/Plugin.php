@@ -2,6 +2,7 @@
 
 namespace Sioweb\ApplyEnvironment\ContaoManager;
 
+use Sioweb\ApplyEnvironment\SiowebApplyEnvironmentBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
@@ -26,7 +27,7 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface, Extension
     public function getBundles(ParserInterface $parser)
     {
         return [
-            BundleConfig::create('Sioweb\ApplyEnvironment\SiowebApplyEnvironmentBundle')
+            BundleConfig::create(SiowebApplyEnvironmentBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }
