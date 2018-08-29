@@ -21,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-
+use Contao\CoreBundle\Command\AbstractLockedCommand;
 /**
  * Symlinks the public resources into the web directory.
  */
@@ -60,7 +60,8 @@ class AddGitCommand extends AbstractLockedCommand
         $this
             ->setName('sioweb:add:git')
             ->setDefinition([
-                new InputArgument('url', InputArgument::REQUIRED, 'The url to the git repository', 'https://www.github.com/'),
+                new InputArgument('url', InputArgument::REQUIRED, 'The url to the git repository'),
+                new InputArgument('package', InputArgument::REQUIRED, 'The package name'),
             ])
             ->setDescription('Initialize the git repository, in the package for better development in vendor (Only recomended on localhost!).')
         ;
@@ -74,51 +75,17 @@ class AddGitCommand extends AbstractLockedCommand
         $this->io = new SymfonyStyle($input, $output);
         $this->rootDir = $this->getContainer()->getParameter('kernel.project_dir');
         $this->gitUrl = rtrim($input->getArgument('url'), '/');
+        $this->packageName = rtrim($input->getArgument('package'), '/');
+        // die("cd \"".$this->rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.str_replace('/',DIRECTORY_SEPARATOR,$this->packageName)."\" && git init && git remote add origin ".$this->gitUrl." && git fetch --all && git reset --hard origin/master 2>&1");
+        exec("cd \"".$this->rootDir.'/vendor/'.$this->packageName."\" && git init && git remote add origin ".$this->gitUrl." && git fetch --all && git reset --hard origin/master 2>&1", $output);
+        // print_r($output);
+        // die();
 
-        $this->loadComposerJson();
-        $this->initializeGitForPackage();
-
-        if (!empty($this->rows)) {
-            $this->io->newLine();
-            $this->io->table(['', 'GIT', 'Url / Error'], $this->rows);
-        }
+        // if (!empty($this->rows)) {
+        //     $this->io->newLine();
+        //     $this->io->table(['', 'GIT', 'Url / Error'], $this->rows);
+        // }
 
         return $this->statusCode;
-    }
-
-    private function loadComposerJson() {
-        
-    }
-
-    private function initializeGitForPackage() {
-        
-    }
-
-    /**
-     * Generates the symlinks in the web directory.
-     */
-    private function generateSymlinks(): void
-    {
-        $fs = new Filesystem();
-        $uploadPath = $this->getContainer()->getParameter('contao.upload_path');
-
-        // Remove the base folders in the document root
-        $fs->remove($this->rootDir.'/'.$this->webDir.'/'.$uploadPath);
-        $fs->remove($this->rootDir.'/'.$this->webDir.'/system/modules');
-        $fs->remove($this->rootDir.'/'.$this->webDir.'/vendor');
-
-        $this->symlinkFiles($uploadPath);
-        $this->symlinkModules();
-        $this->symlinkThemes();
-
-        // Symlink the assets and themes directory
-        $this->symlink('assets', $this->webDir.'/assets');
-        $this->symlink('system/themes', $this->webDir.'/system/themes');
-
-        // Symlinks the logs directory
-        $this->symlink($this->getRelativePath($this->getContainer()->getParameter('kernel.logs_dir')), 'system/logs');
-
-        // Symlink the TCPDF config file
-        $this->symlink('vendor/contao/core-bundle/src/Resources/contao/config/tcpdf.php', 'system/config/tcpdf.php');
     }
 }

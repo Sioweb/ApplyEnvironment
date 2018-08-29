@@ -42,6 +42,7 @@ class ApplyEnvironmentExtension extends Extension
 
         $loader->load('listener.yml');
         $loader->load('services.yml');
+        $loader->load('commands.yml');
 
 		$container->setParameter('apply_environments.environments', $mergedConfig['environments']);
     }

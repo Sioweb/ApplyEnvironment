@@ -97,6 +97,8 @@ class Authenticator extends AbstractGuardAuthenticator
 
             unset($accessKey);
         }
+
+        return ['token' => 1];
     }
 
     /**
@@ -104,7 +106,7 @@ class Authenticator extends AbstractGuardAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        return;
+        // return true;
     }
 
     /**
