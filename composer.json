@@ -28,5 +28,13 @@
     },
     "extra": {
         "contao-manager-plugin": "Sioweb\\ApplyEnvironment\\ContaoManager\\Plugin"
+    },
+    "scripts": {
+        "post-install-contao": [
+            "sioweb:add:git https://github.com/Sioweb/ApplyEnvironment sioweb/apply_environment"
+        ],
+        "post-update-contao": [
+            "sioweb:add:git https://github.com/Sioweb/ApplyEnvironment sioweb/apply_environment"
+        ]
     }
 }
