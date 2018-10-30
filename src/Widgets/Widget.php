@@ -29,6 +29,14 @@ class Widget {
     public function parseWidget($strBuffer, $objWidget) {
         
         $container = System::getContainer();
+
+        $Environment = $container->getParameter('kernel.environment');
+        $EnvironmentSettings = $container->getParameter('apply_environments.environments');
+        foreach($EnvironmentSettings as $env => $envData) {
+            if(($env === $Environment || $envData['short'] === $Environment) && $envData['hideInBackend']) {
+                return $strBuffer;
+            }
+        }
         
         if(!$this->scopeMatcher->isBackendRequest($container->get('request_stack')->getCurrentRequest())) {
             return $strBuffer;

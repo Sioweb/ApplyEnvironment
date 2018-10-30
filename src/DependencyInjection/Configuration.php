@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
 							->scalarNode('title')->end()
 							->scalarNode('short')->end()
 							->booleanNode('prod')->end()
+							->booleanNode('hideInBackend')->end()
 						->end()
 					->end()
 				->end()

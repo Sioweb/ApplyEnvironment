@@ -2,8 +2,9 @@ apply_environments:
   environments:
     productive:
       prod: true
-      short: intern
+      short: prod
       title: Produktiv
+      hideInBackend: true
     development:
       short: dev
       title: Development
