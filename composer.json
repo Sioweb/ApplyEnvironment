@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": "^7.1",
+        "sioweb/ccevent": "*",
         "contao/core-bundle": "^4.6"
     },
     "conflict": {
