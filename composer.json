@@ -31,10 +31,10 @@
     },
     "scripts": {
         "post-install-contao": [
-            "ls -la"
+            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment"
         ],
         "post-update-contao": [
-            "ls -la"
+            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment"
         ]
     }
 }
