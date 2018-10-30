@@ -31,10 +31,10 @@
     },
     "scripts": {
         "post-install-contao": [
-            "sh vendor/bin/contao-console sioweb:add:git https://github.com/Sioweb/ApplyEnvironment sioweb/apply_environment"
+            "ls -la"
         ],
         "post-update-contao": [
-            "sh vendor/bin/contao-console sioweb:add:git https://github.com/Sioweb/ApplyEnvironment sioweb/apply_environment"
+            "ls -la"
         ]
     }
 }
