@@ -24,7 +24,7 @@ class Git {
 
     public static function init($event): void
     {
-        echo "GIT Arguments: '.print_r($event->getArguments(), 1);
+        echo "\nGIT Arguments: ".print_r($event->getArguments(), 1);
         echo "\nGIT Init: " . $event->getName() . "\n";
     }
 
