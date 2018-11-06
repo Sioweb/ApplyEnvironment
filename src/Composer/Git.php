@@ -16,6 +16,7 @@ class Git {
         $InputDefinition = new InputDefinition;
         $InputDefinition->setDefinition([
             new InputOption('repository', 'r', InputOption::VALUE_REQUIRED, 'url to git repo'),
+            new InputOption('xyz', 'x', InputOption::VALUE_OPTIONAL, 'url to git repo'),
         ]);
 
         return $InputDefinition;
@@ -25,7 +26,7 @@ class Git {
     {
         echo "\nInit: " . $event->getComposer()->getPackage() . "\n";
         print_r($event->getArguments());
-        echo "\nInit: " . $event()->getName() . "\n";
+        echo "\nInit: " . $event->getName() . "\n";
         die();
     }
 
