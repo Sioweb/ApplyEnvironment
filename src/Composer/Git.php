@@ -2,53 +2,43 @@
 
 namespace Sioweb\ApplyEnvironment\Composer;
 
-use Composer\Installer\PackageEvent as Event;
-use Composer\Util\Filesystem;
+use Composer\Package\Dumper\ArrayDumper;
+use Sioweb\CCEvent\Composer\Installer\PackageEvent as Event;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputOption;
+class Git
+{
 
-use Composer\Package\Dumper\ArrayDumper;
-
-class Git {
-
-    public static function getDefinition() {
+    public static function getInitDefinition()
+    {
         $InputDefinition = new InputDefinition;
         $InputDefinition->setDefinition([
-            new InputOption('repository', 'r', InputOption::VALUE_REQUIRED, 'url to git repo'),
-            new InputOption('xyz', 'x', InputOption::VALUE_OPTIONAL, 'url to git repo'),
+            new InputOption('repository', 'r', InputOption::VALUE_REQUIRED, 'url to git repo')
         ]);
 
         return $InputDefinition;
     }
 
-    public static function init($event): void
+    public static function init(Event $event): void
     {
+        $package = method_exists($event->getOperation(), 'getPackage')
+            ? $operation->getPackage()
+            : $operation->getInitialPackage();
+
         $Input = new StringInput(implode(' ', $event->getArguments()));
-        $Input->bind(self::getDefinition());
-        echo "\nArguments: ".print_r($Input->getOptions(), 1);
-        echo "\nGIT Init: " . $event->getName() . "\n";
-        
-        $operation = $event->getOperation();
+        $Input->bind(self::getInitDefinition());
+        $Arguments = $Input->getOptions();
 
-        $package = method_exists($operation, 'getPackage')
-        ? $operation->getPackage()
-        : $operation->getInitialPackage();
-
-        $Dumper = new ArrayDumper;
-        $EventDispatcher = $event->getComposer()->getEventDispatcher();
-
-        echo "\t\t- root: ".$event->getComposer()->getPackage()."\n";
-        echo "\t\t- getTargetDir: ".$package->getTargetDir()."\n";
-        echo "\t\t- getSourceType: ".$package->getSourceType()."\n";
-        echo "\t\t- getSourceUrl: ".$package->getSourceUrl()."\n";
-        echo "\t\t- getVersion: ".$package->getVersion()."\n";
-        echo "\t\t- getUrls: ".print_r($package->getSourceUrls(),1)."\n";
-        echo "\t\t- getVendorPath: ".$event->getComposer()->getConfig()->get('vendor-dir')."\n";
-        echo "\t\t- ArrayDump: ".print_r($Dumper->dump($package),1)."\n";
+        static::executeCommand('sioweb:add:git ' . implode(' ', [
+            '--repository='.$Arguments['repository'],
+            '--package='.$package->getName(),
+            '--target-dir='.$package->getSourceUrl(),
+            '--vendor-dir='.$event->getComposer()->getConfig()->get('vendor-dir'),
+        ]), $event);
     }
 
     private static function getWebDir(Event $event): string
@@ -73,7 +63,7 @@ class Git {
             sprintf(
                 '%s %s%s %s%s --env=%s',
                 escapeshellarg($phpPath),
-                escapeshellarg($event->getComposer()->getConfig()->get('vendor-dir').'/bin/contao-console'),
+                escapeshellarg($event->getComposer()->getConfig()->get('vendor-dir') . '/bin/contao-console'),
                 $event->getIO()->isDecorated() ? ' --ansi' : '',
                 $cmd,
                 self::getVerbosityFlag($event),
