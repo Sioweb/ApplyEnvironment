@@ -31,7 +31,8 @@
     },
     "scripts": {
         "package-scripts": [
-            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment"
+            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment",
+            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment --xyz=test"
         ]
     }
 }
