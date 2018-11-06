@@ -30,10 +30,7 @@
         "contao-manager-plugin": "Sioweb\\ApplyEnvironment\\ContaoManager\\Plugin"
     },
     "scripts": {
-        "post-install-contao": [
-            "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment"
-        ],
-        "post-update-contao": [
+        "package-scripts": [
             "Sioweb\\ApplyEnvironment\\Composer\\Git::init --repository=https://github.com/Sioweb/ApplyEnvironment"
         ]
     }
