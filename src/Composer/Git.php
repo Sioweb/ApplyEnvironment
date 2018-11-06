@@ -23,7 +23,8 @@ class Git {
 
     public static function init($event): void
     {
-        print_r($event->getArguments());
+        echo "\nInit: " . $event->getComposer()->getPackage() . "\n";
+        print_r($event->getCcArguments());
         print_r($event);
         die();
     }
