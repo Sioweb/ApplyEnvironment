@@ -24,10 +24,8 @@ class Git {
 
     public static function init($event): void
     {
-        echo "\nInit: " . $event->getComposer()->getPackage() . "\n";
-        print_r($event->getArguments());
-        echo "\nInit: " . $event->getName() . "\n";
-        die();
+        echo "GIT Arguments: '.print_r($event->getArguments(), 1);
+        echo "\nGIT Init: " . $event->getName() . "\n";
     }
 
     private static function getWebDir(Event $event): string
