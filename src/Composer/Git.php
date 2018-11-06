@@ -11,6 +11,8 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
+use Composer\Package\Dumper\ArrayDumper;
+
 class Git {
 
     public static function getDefinition() {
@@ -29,6 +31,24 @@ class Git {
         $Input->bind(self::getDefinition());
         echo "\nArguments: ".print_r($Input->getOptions(), 1);
         echo "\nGIT Init: " . $event->getName() . "\n";
+        
+        $operation = $event->getOperation();
+
+        $package = method_exists($operation, 'getPackage')
+        ? $operation->getPackage()
+        : $operation->getInitialPackage();
+
+        $Dumper = new ArrayDumper;
+        $EventDispatcher = $event->getComposer()->getEventDispatcher();
+
+        echo "\t\t- root: ".$event->getComposer()->getPackage()."\n";
+        echo "\t\t- getTargetDir: ".$package->getTargetDir()."\n";
+        echo "\t\t- getSourceType: ".$package->getSourceType()."\n";
+        echo "\t\t- getSourceUrl: ".$package->getSourceUrl()."\n";
+        echo "\t\t- getVersion: ".$package->getVersion()."\n";
+        echo "\t\t- getUrls: ".print_r($package->getSourceUrls(),1)."\n";
+        echo "\t\t- getVendorPath: ".$event->getComposer()->getConfig()->get('vendor-dir')."\n";
+        echo "\t\t- ArrayDump: ".print_r($Dumper->dump($package),1)."\n";
     }
 
     private static function getWebDir(Event $event): string
