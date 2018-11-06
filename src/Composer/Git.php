@@ -25,6 +25,8 @@ class Git
 
     public static function init(Event $event): void
     {
+        $operation = $event->getOperation();
+        
         $package = method_exists($event->getOperation(), 'getPackage')
             ? $operation->getPackage()
             : $operation->getInitialPackage();
