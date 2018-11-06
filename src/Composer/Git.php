@@ -7,6 +7,7 @@ use Composer\Util\Filesystem;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -24,7 +25,9 @@ class Git {
 
     public static function init($event): void
     {
-        echo "\nGIT Arguments: ".print_r($event->getArguments(), 1);
+        $Input = new StringInput(implode(' ', $event->getArguments()));
+        $Input->bind(self::getDefinition());
+        echo "\nArguments: ".print_r($Input->getOptions(), 1);
         echo "\nGIT Init: " . $event->getName() . "\n";
     }
 
