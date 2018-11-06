@@ -60,8 +60,10 @@ class AddGitCommand extends AbstractLockedCommand
         $this
             ->setName('sioweb:add:git')
             ->setDefinition([
-                new InputArgument('url', InputArgument::REQUIRED, 'The url to the git repository'),
+                new InputArgument('repository', InputArgument::REQUIRED, 'The url to the git repository'),
                 new InputArgument('package', InputArgument::REQUIRED, 'The package name'),
+                new InputArgument('target-dir', InputArgument::OPTIONAL, 'The composer target dir'),
+                new InputArgument('vendor-dir', InputArgument::OPTIONAL, 'The composer vendor dir'),
             ])
             ->setDescription('Initialize the git repository, in the package for better development in vendor (Only recomended on localhost!).')
         ;
