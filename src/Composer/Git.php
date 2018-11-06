@@ -23,7 +23,8 @@ class Git {
 
     public static function init($event): void
     {
-        print_r($event->getOperation()->getArguments());
+        print_r($event->getArguments());
+        print_r($event);
         die();
     }
 
