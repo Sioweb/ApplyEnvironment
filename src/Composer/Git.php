@@ -67,8 +67,6 @@ class Git
             $phpPath,
             escapeshellarg(__DIR__.'/../../bin/contao-console'),
             $cmd,
-            self::getWebDir($event),
-            $event->getIO()->isDecorated() ? ' --ansi' : '',
             self::getVerbosityFlag($event)
         );
         echo "\n----------------------\n";
@@ -79,8 +77,6 @@ class Git
                 $phpPath,
                 escapeshellarg(__DIR__.'/../../bin/contao-console'),
                 $cmd,
-                self::getWebDir($event),
-                $event->getIO()->isDecorated() ? ' --ansi' : '',
                 self::getVerbosityFlag($event)
             )
         );
