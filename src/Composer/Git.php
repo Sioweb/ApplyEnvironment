@@ -63,9 +63,9 @@ class Git
 
         echo "\nExecute GIT:\n";
         echo sprintf(
-            '%s %s/console %s %s%s%s',
+            '%s %s/contao-console %s %s',
             $phpPath,
-            escapeshellarg(__DIR__.'/../../bin/contao-console'),
+            escapeshellarg(__DIR__.'/../../bin'),
             $cmd,
             self::getVerbosityFlag($event)
         );
@@ -73,9 +73,9 @@ class Git
 
         $process = new Process(
             sprintf(
-                '%s %s/console %s %s%s%s',
+                '%s %s/contao-console %s %s',
                 $phpPath,
-                escapeshellarg(__DIR__.'/../../bin/contao-console'),
+                escapeshellarg(__DIR__.'/../../bin'),
                 $cmd,
                 self::getVerbosityFlag($event)
             )
