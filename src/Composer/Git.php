@@ -96,6 +96,18 @@ class Git
         }
     }
 
+    private static function getBinDir(Event $event): string
+    {
+        $extra = $event->getComposer()->getPackage()->getExtra();
+
+        // Symfony assumes the new directory structure if symfony-var-dir is set
+        if (isset($extra['symfony-var-dir']) && is_dir($extra['symfony-var-dir'])) {
+            return $extra['symfony-bin-dir'] ?? 'bin';
+        }
+
+        return $extra['symfony-app-dir'] ?? 'app';
+    }
+
     private static function getVerbosityFlag(Event $event): string
     {
         $io = $event->getIO();
