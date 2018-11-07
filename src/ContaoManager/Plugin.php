@@ -13,6 +13,7 @@ use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Contao\ManagerPlugin\Config\ContainerBuilder;
 use Contao\ManagerPlugin\Config\ExtensionPluginInterface;
 use Contao\ManagerPlugin\Config\ContainerBuilder as PluginContainerBuilder;
+use Contao\ManagerBundle\ContaoManagerBundle;
 
 /**
  * Plugin for the Contao Manager.
@@ -28,7 +29,7 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface, Extension
     {
         return [
             BundleConfig::create(SiowebApplyEnvironmentBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class]),
+                ->setLoadAfter([ContaoCoreBundle::class, ContaoManagerBundle::class]),
         ];
     }
     
