@@ -13,16 +13,16 @@ Es kommt vor, dass jede Environment (Live, Dev, Local, ...) andere Einstellungen
 Im Verzeichnis `/app/config/` muss eine Datei `environments.yml` erzeugt werden. Für Live, Dev und Localhost muss die Datei wie folgt aufgebaut werden:
 
 	apply_environments:
-  		environments:
-		    productive:
-		      prod: true
-		      short: intern
-		      title: Produktiv
-		    development:
-		      short: dev
-		      title: Development
-		    localhost:
-		      title: Localhost
+		environments:
+			productive:
+				prod: true
+				short: intern
+				title: Produktiv
+			development:
+				short: dev
+				title: Development
+			localhost:
+				title: Localhost
 
 ### Optionen
 
