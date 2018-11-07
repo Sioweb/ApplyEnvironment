@@ -63,21 +63,25 @@ class Git
 
         echo "\nExecute GIT:\n";
         echo sprintf(
-            '%s %s/contao-console %s %s',
+            '%s %s%s %s%s --env=%s',
             $phpPath,
-            $event->getComposer()->getConfig()->get('vendor-dir').'/contao/manager-bundle/bin',
+            $event->getComposer()->getConfig()->get('vendor-dir').'/contao/manager-bundle/bin/contao-console',
+            $event->getIO()->isDecorated() ? ' --ansi' : '',
             $cmd,
-            self::getVerbosityFlag($event)
+            self::getVerbosityFlag($event),
+            getenv('SYMFONY_ENV') ?: 'prod'
         );
         echo "\n----------------------\n";
 
         $process = new Process(
             sprintf(
-                '%s %s/contao-console %s %s',
+                '%s %s%s %s%s --env=%s',
                 $phpPath,
-                $event->getComposer()->getConfig()->get('vendor-dir').'/contao/manager-bundle/bin',
+                $event->getComposer()->getConfig()->get('vendor-dir').'/contao/manager-bundle/bin/contao-console',
+                $event->getIO()->isDecorated() ? ' --ansi' : '',
                 $cmd,
-                self::getVerbosityFlag($event)
+                self::getVerbosityFlag($event),
+                getenv('SYMFONY_ENV') ?: 'prod'
             )
         );
 
