@@ -65,7 +65,7 @@ class Git
         echo sprintf(
             '%s %s/contao-console %s %s',
             $phpPath,
-            escapeshellarg(__DIR__.'/../../bin'),
+            $event->getComposer()->getConfig()->get('vendor-dir').'/bin',
             $cmd,
             self::getVerbosityFlag($event)
         );
@@ -75,7 +75,7 @@ class Git
             sprintf(
                 '%s %s/contao-console %s %s',
                 $phpPath,
-                escapeshellarg(__DIR__.'/../../bin'),
+                $event->getComposer()->getConfig()->get('vendor-dir').'/bin',
                 $cmd,
                 self::getVerbosityFlag($event)
             )
