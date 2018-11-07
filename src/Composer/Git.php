@@ -36,8 +36,8 @@ class Git
         $Arguments = $Input->getOptions();
 
         static::executeCommand('sioweb:add:git ' . implode(' ', [
-            '--repository='.$Arguments['repository'],
-            '--package='.$package->getName(),
+            $Arguments['repository'],
+            $package->getName(),
             '--target-dir='.$package->getSourceUrl(),
             '--vendor-dir='.$event->getComposer()->getConfig()->get('vendor-dir'),
         ]), $event);
