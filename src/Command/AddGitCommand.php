@@ -77,7 +77,7 @@ class AddGitCommand extends AbstractLockedCommand
     {
         $this->io = new SymfonyStyle($input, $output);
         $this->rootDir = $this->getContainer()->getParameter('kernel.project_dir');
-        $this->gitUrl = rtrim($input->getArgument('url'), '/');
+        $this->gitUrl = rtrim($input->getArgument('repository'), '/');
         $this->packageName = rtrim($input->getArgument('package'), '/');
         // die("cd \"".$this->rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.str_replace('/',DIRECTORY_SEPARATOR,$this->packageName)."\" && git init && git remote add origin ".$this->gitUrl." && git fetch --all && git reset --hard origin/master 2>&1");
         exec("cd \"".$this->rootDir.'/vendor/'.$this->packageName."\" && git init && git remote add origin ".$this->gitUrl." && git fetch --all && git reset --hard origin/master 2>&1", $output);
