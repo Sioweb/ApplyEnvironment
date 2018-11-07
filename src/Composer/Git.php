@@ -61,30 +61,29 @@ class Git
             throw new \RuntimeException('The php executable could not be found.');
         }
 
-        echo "\nOUTPUT GIT COMMAND:\n".sprintf(
-            '%s %s%s %s%s --env=%s',
-            escapeshellarg($phpPath),
-            escapeshellarg($event->getComposer()->getConfig()->get('vendor-dir') . '/bin/contao-console'),
-            $event->getIO()->isDecorated() ? ' --ansi' : '',
+        echo "\nExecute GIT:\n";
+        echo sprintf(
+            '%s %s/console %s %s%s%s',
+            $phpPath,
+            self::getBinDir($event),
             $cmd,
-            self::getVerbosityFlag($event),
-            getenv('SYMFONY_ENV') ?: 'prod'
-        )."\n----------------\n";
+            self::getWebDir($event),
+            $event->getIO()->isDecorated() ? ' --ansi' : '',
+            self::getVerbosityFlag($event)
+        );
+        echo "\n----------------------\n";
 
         $process = new Process(
             sprintf(
-                '%s %s%s %s%s --env=%s',
-                escapeshellarg($phpPath),
-                escapeshellarg($event->getComposer()->getConfig()->get('vendor-dir') . '/bin/contao-console'),
-                $event->getIO()->isDecorated() ? ' --ansi' : '',
+                '%s %s/console %s %s%s%s',
+                $phpPath,
+                self::getBinDir($event),
                 $cmd,
-                self::getVerbosityFlag($event),
-                getenv('SYMFONY_ENV') ?: 'prod'
+                self::getWebDir($event),
+                $event->getIO()->isDecorated() ? ' --ansi' : '',
+                self::getVerbosityFlag($event)
             )
         );
-
-        // Increase the timeout according to terminal42/background-process (see #54)
-        $process->setTimeout(800);
 
         $process->run(
             function (string $type, string $buffer) use ($event): void {
@@ -93,9 +92,7 @@ class Git
         );
 
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException(
-                sprintf('An error occurred while executing the "%s" command: %s', $cmd, $process->getErrorOutput())
-            );
+            throw new \RuntimeException(sprintf('An error occurred while executing the "%s" command.', $cmd));
         }
     }
 
