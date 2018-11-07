@@ -15,6 +15,7 @@ namespace Sioweb\ApplyEnvironment\Command;
 use Contao\CoreBundle\Analyzer\HtaccessAnalyzer;
 use Contao\CoreBundle\Util\SymlinkUtil;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -62,8 +63,8 @@ class AddGitCommand extends AbstractLockedCommand
             ->setDefinition([
                 new InputArgument('repository', InputArgument::REQUIRED, 'The url to the git repository'),
                 new InputArgument('package', InputArgument::REQUIRED, 'The package name'),
-                new InputArgument('target-dir', InputArgument::OPTIONAL, 'The composer target dir'),
-                new InputArgument('vendor-dir', InputArgument::OPTIONAL, 'The composer vendor dir'),
+                new InputOption('target-dir', 'td', InputOption::VALUE_OPTIONAL, 'The composer target dir'),
+                new InputOption('vendor-dir', 'vd', InputOption::VALUE_OPTIONAL, 'The composer vendor dir'),
             ])
             ->setDescription('Initialize the git repository, in the package for better development in vendor (Only recomended on localhost!).')
         ;
