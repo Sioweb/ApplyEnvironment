@@ -65,7 +65,7 @@ class Git
         echo sprintf(
             '%s %s/console %s %s%s%s',
             $phpPath,
-            self::getBinDir($event),
+            escapeshellarg(__DIR__.'/../../bin/contao-console'),
             $cmd,
             self::getWebDir($event),
             $event->getIO()->isDecorated() ? ' --ansi' : '',
@@ -77,7 +77,7 @@ class Git
             sprintf(
                 '%s %s/console %s %s%s%s',
                 $phpPath,
-                self::getBinDir($event),
+                escapeshellarg(__DIR__.'/../../bin/contao-console'),
                 $cmd,
                 self::getWebDir($event),
                 $event->getIO()->isDecorated() ? ' --ansi' : '',
