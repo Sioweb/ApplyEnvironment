@@ -61,18 +61,6 @@ class Git
             throw new \RuntimeException('The php executable could not be found.');
         }
 
-        echo "\nExecute GIT:\n";
-        echo sprintf(
-            '%s %s%s %s%s --env=%s',
-            $phpPath,
-            $event->getComposer()->getConfig()->get('vendor-dir').'/contao/manager-bundle/bin/contao-console',
-            $event->getIO()->isDecorated() ? ' --ansi' : '',
-            $cmd,
-            self::getVerbosityFlag($event),
-            getenv('SYMFONY_ENV') ?: 'prod'
-        );
-        echo "\n----------------------\n";
-
         $process = new Process(
             sprintf(
                 '%s %s%s %s%s --env=%s',
