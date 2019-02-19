@@ -90,6 +90,7 @@ jQuery.noConflict();
 
                 selfObj.$template = $(selfObj.template).insertAfter(selfObj.item);
                 selfObj.item.hide();
+                selfObj.item.data('ui-select', 1).get(0).setAttribute('data-ui-select', 1);
                 
                 $ul = selfObj.$template.find('ul').eq(0);
                 $ul.css('max-height', 'none');
@@ -174,9 +175,10 @@ jQuery.noConflict();
 
 })(jQuery);
 
+
 (function ($) {
-    $(function () {
-        $('.apply2environment').each(function() {
+    var addApplyment = function(selector) {
+        $(selector).each(function() {
             $(this).select({
                 closeOnSelect: false,
                 updated: function($li, selectObj) {
@@ -225,5 +227,12 @@ jQuery.noConflict();
                 }
             });
         });
+    };
+    window.addEvent('ajax_change', function() {
+        addApplyment('.apply2environment:not([data-ui-select="1]');
+    });
+
+    $(function () {
+        addApplyment('.apply2environment');
     });
 })(jQuery);
