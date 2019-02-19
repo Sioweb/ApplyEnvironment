@@ -130,6 +130,52 @@ jQuery.noConflict();
                     selfObj.updated($el, selfObj);
                 });
             };
+
+            /**
+             *  {
+             *      "options": {
+             *          "0": {
+             *              "value": 0
+             *          }
+             *      }
+             *  }
+             */
+            this.parseName = function(nameArray, inputName, inputValue) {
+                var regexp = new RegExp(/\[([^\]]+)\]/, 'gmi'),
+                    _match = null;
+                
+                if(inputValue === undefined) {
+                    return nameArray;
+                }
+
+                if(_match = inputName.match(regexp)) {
+                    var cleanName = inputName.replace(/\[.*/,''),
+                        arrLength = _match.length;
+
+                    if(nameArray[cleanName] === undefined) {
+                        nameArray[cleanName] = {};
+                    }
+
+                    cleanName = nameArray[cleanName];
+
+                    for(var i = 0; i < arrLength; i++) {
+                        var value = _match[i].match(/\[(.*)\]/)[1];
+                        if(arrLength > (i+1)) {
+                            if(cleanName[value] === undefined) {
+                                cleanName[value] = {};
+                            }
+                            cleanName = cleanName[value]
+                        } else {
+                            cleanName[value] = inputValue;
+                            cleanName = cleanName[value];
+                        }
+                    }
+                } else {
+                    nameArray[inputName] = inputValue;
+                }
+
+                return nameArray;
+            };
         };
 
     $[pluginName] = $.fn[pluginName] = function (settings) {
@@ -183,38 +229,25 @@ jQuery.noConflict();
                 closeOnSelect: false,
                 updated: function($li, selectObj) {
                     var widgetData = selectObj.item.data('widget'),
-                        formValues = {},
+                        formValues = [],
                         serializedFormData = $li.closest('form').serializeArray();
 
+                    widgetData.form = null;
                     if($li.data('value') === '') {
                         return;
                     }
-
                     if(serializedFormData.length) {
                         for(var key in serializedFormData) {
                             if(serializedFormData[key].name.indexOf('a2e_') === 0) {
                                 continue;
                             }
-                            if(formValues[serializedFormData[key].name.replace('[]','')] === undefined && serializedFormData[key].value !== '') {
-                                if(serializedFormData[key].value !== undefined) {
-                                    formValues[serializedFormData[key].name.replace('[]','')] = serializedFormData[key].value;
-                                }
-                            } else if(serializedFormData[key].value !== '') {
-                                if(typeof formValues[serializedFormData[key].name.replace('[]','')] !== 'object') {
-                                    if(formValues[serializedFormData[key].name.replace('[]','')] !== '') {
-                                        formValues[serializedFormData[key].name.replace('[]','')] = [formValues[serializedFormData[key].name.replace('[]','')]];
-                                    } else {
-                                        formValues[serializedFormData[key].name.replace('[]','')] = [];
-                                    }
-                                }
-
-                                formValues[serializedFormData[key].name.replace('[]','')].push(serializedFormData[key].value);
-                            }
+                            
+                            formValues = selectObj.parseName(formValues, serializedFormData[key].name,serializedFormData[key].value);
                         }
                     }
 
                     widgetData.form = formValues[widgetData.name];
-
+                    
                     $.ajax({
                         method: 'POST',
                         dataType: 'json',
