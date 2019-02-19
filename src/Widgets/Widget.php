@@ -65,7 +65,8 @@ class Widget {
         return preg_replace(
             '|(<\/label>)|is',
             $strEnvironments.'$1',
-            $strBuffer
+            $strBuffer,
+            1
         );
     }
 }
