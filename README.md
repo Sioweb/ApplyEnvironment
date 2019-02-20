@@ -77,6 +77,30 @@ Die aktuelle Environment, kann auch direkt mit `composer update` und `composer i
 	    },
 	}
 
+### .env
+
+Damit die korrekte Environment eingespielt wird, muss diese im Root von Contao in einer `.env`-Datei hinterlegt werden:
+
+	APPLY_ENVIRONMENT='localhost'
+	
+Statt localhost, bitte die Environment angeben die ihr Wünscht, das ist wichtig, damit die korrekte Datenbank verwendet wird.
+
+### MYSQL_USER not found
+
+Wenn die Datenbank wie folgt in der Datei `/app/config/parameters_XXX.yml` definiert sind, kann es passieren, dass die Konsole keinen Zugriff auf die ENV-Daten hat:
+
+	# This file has been auto-generated during installation
+	parameters:
+	    database_user: "%env(MYSQL_USER)%"
+	    database_password: "%env(MYSQL_PASSWORD)%"
+	    database_name: "%env(MYSQL_DATABASE)%"
+
+Der Konsole müssen in diesem Fall erst die Daten übermittelt werden: 
+
+	export MYSQL_DATABASE="your_database"
+	export MYSQL_USER="your_username"
+	export MYSQL_PASSWORD="your_password"
+
 ## Wie werden einstellungen gespeichert?
 
 Überall im Contao-Backend, werden alle Widgets um einen kleinen unsichtbaren Kreis erweitert. Wird die Maus über ein Eingabefeld bewegt, wird der Kreis sichtbar. Durch einen Klick öffnet sich das Menü mit den möglichen Environments / Umgebungen. Durch einen Klick auf eine Environment, wird der Eintrag in dem Eingabefeld gespeichert. 
