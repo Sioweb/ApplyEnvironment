@@ -49,6 +49,34 @@ Im Verzeichnis `/app/config/` muss eine Datei `environments.yml` erzeugt werden.
 	</tr>
 </table>
 
+## Environment per Konsole
+
+Für automatische Builds kann es wichtig werden, die Environments per Konsole zu installieren. Im Root von Contao kann folgendes in die Konsole eingegeben werden:
+
+	vendor/bin/contao-console --env=YOUR_ENVIRONMENT sioweb:environment
+
+Auf einigen Systemen ist PHP nicht als Alias angelegt, dann muss dieses vor den Befehl geschrieben werden:
+
+
+	/path/to/php vendor/bin/contao-console --env=YOUR_ENVIRONMENT sioweb:environment
+
+## Composer install/update
+
+Die aktuelle Environment, kann auch direkt mit `composer update` und `composer install` eingespielt werden:
+
+	{
+	    "scripts": {
+		"post-install-cmd": [
+		    "Contao\\ManagerBundle\\Composer\\ScriptHandler::initializeApplication",
+		    "Sioweb\\ApplyEnvironment\\Composer\\ApplyEnvironment::setup"
+		],
+		"post-update-cmd": [
+		    "Contao\\ManagerBundle\\Composer\\ScriptHandler::initializeApplication",
+		    "Sioweb\\ApplyEnvironment\\Composer\\ApplyEnvironment::setup"
+		]
+	    },
+	}
+
 ## Wie werden einstellungen gespeichert?
 
 Überall im Contao-Backend, werden alle Widgets um einen kleinen unsichtbaren Kreis erweitert. Wird die Maus über ein Eingabefeld bewegt, wird der Kreis sichtbar. Durch einen Klick öffnet sich das Menü mit den möglichen Environments / Umgebungen. Durch einen Klick auf eine Environment, wird der Eintrag in dem Eingabefeld gespeichert. 
