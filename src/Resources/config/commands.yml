@@ -9,3 +9,5 @@ services:
 
     apply_environment.command.addgit:
         class: Sioweb\ApplyEnvironment\Command\AddGitCommand
+    apply_environment.command.environment:
+        class: Sioweb\ApplyEnvironment\Command\ApplyEnvironmentCommand
