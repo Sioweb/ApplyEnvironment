@@ -75,6 +75,7 @@ class AddGitCommand extends AbstractLockedCommand
      */
     protected function executeLocked(InputInterface $input, OutputInterface $output): int
     {
+        echo "Loading git repositories.\n";
         $this->io = new SymfonyStyle($input, $output);
         $this->rootDir = $this->getContainer()->getParameter('kernel.project_dir');
         $this->gitUrl = rtrim($input->getArgument('repository'), '/');
