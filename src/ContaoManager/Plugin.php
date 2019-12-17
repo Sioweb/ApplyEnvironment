@@ -77,6 +77,7 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface, Extension
                         'apply_environment' => [
                             'pattern' => '/sioweb/a2e/api/*',
                             'anonymous' => true,
+                            'provider' => 'sioweb.apply_environment.user_provider',
                             'guard' => [
                                 'authenticators' => [
                                     'sioweb.security.cm_authenticator'
