@@ -47,7 +47,7 @@ class ApplyToEnvironmentController extends Controller {
             }
 
             if($env['short'] === $environment) {
-                $envPath = $this->container->getParameter('kernel.root_dir').'/environments/'.$env['short'];
+                $envPath = $this->container->getParameter('kernel.project_dir').'/environments/'.$env['short'];
                 if(!is_dir($envPath)) {
                     mkdir($envPath, 0700, true);
                 }

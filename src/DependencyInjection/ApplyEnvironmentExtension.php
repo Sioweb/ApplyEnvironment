@@ -26,7 +26,7 @@ class ApplyEnvironmentExtension extends Extension
         $baseConfig = Yaml::parse(file_get_contents(__DIR__.'/../Resources/config/environments.yml'), Yaml::PARSE_CONSTANT);
         $configs = array_filter(array_merge([$baseConfig['apply_environments']], $configs));
 
-        $rootDir = $container->getParameter('kernel.root_dir');
+        $rootDir = $container->getParameter('kernel.project_dir');
         if (file_exists($rootDir.'/config/environments.yml')) {
             
             $root_baseConfig = Yaml::parse(file_get_contents($rootDir.'/config/environments.yml'), Yaml::PARSE_CONSTANT);

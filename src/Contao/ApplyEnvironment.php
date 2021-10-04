@@ -84,7 +84,7 @@ class ApplyEnvironment extends \Backend implements \executable
             }
 
             if ($env['short'] === $environment) {
-                $envPath = $container->getParameter('kernel.root_dir') . '/environments/' . $env['short'];
+                $envPath = $container->getParameter('kernel.project_dir') . '/environments/' . $env['short'];
 
                 if (file_exists($envPath . '/' . $type . '.yml')) {
                     $arrEnvironment = Yaml::parseFile($envPath . '/' . $type . '.yml');

@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Sioweb\ApplyEnvironment\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Contao\CoreBundle\Analyzer\HtaccessAnalyzer;
 use Contao\CoreBundle\Util\SymlinkUtil;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,10 +24,12 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Contao\CoreBundle\Command\AbstractLockedCommand;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+
 /**
  * Symlinks the public resources into the web directory.
  */
-class AddGitCommand extends AbstractLockedCommand
+class AddGitCommand extends Command
 {
     /**
      * @var SymfonyStyle
